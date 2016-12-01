@@ -1,5 +1,4 @@
 @startuml
-
 enum Strategy{
 XML
 DataBase
@@ -63,19 +62,5 @@ Unmarshaller <|-- XMLUnmarshaller
 Marshaller <|-- DBMarshaller
 Marshaller <|-- XMLMarshaller
 AppBuilder .> Strategy
-
-
-
-class classB{
-List<ClassA> lA
-}
-class B_A{
-id B
-id A
-}
-class classA{
-ClassB b
-
-}
 
 @enduml
