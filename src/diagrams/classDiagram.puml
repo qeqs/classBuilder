@@ -1,19 +1,60 @@
 @startuml
 
+enum Strategy{
+XML
+DataBase
+}
 class AppBuilder{
+-marshaller
+-unmarshaller
+-strategy
++packObjects(Object[] objects,String path)
++packObjects(Object[] objects,Connection connection)
++unpackObjects(String path)
++setStrategy(Strategy strategy)
++getStrategy()
 }
 abstract class Marshaller{
++write(Object clazz)
+-addEntity(Object obj,Object parent)
+-readEntity(String name,String parent)
+-updateEntity(Object obj)
 }
 abstract class Unmarshaller{
++read(String clazz)
 }
-enum Strategy
 class DBMarshaller{
+-queryList
+-queryConstraintList
+-connection
+-addConstraints(Object obj, Object parent)
 }
 class DBUnmarshaller{
+-connection
+-getEntity(String name)
 }
 class XMLMarshaller{
+-domParser
+-document
 }
 class XMLUnmarshaller{
+-saxParser
+}
+package Annotations{
+interface TElement{
+String name()
+boolean getter()
+boolean setter()
+}
+interface TElements{
+TElement[] elements()
+}
+interface TRootElement{
+String name()
+}
+interface TType{
+String name()
+}
 }
 AppBuilder o-down-Marshaller
 AppBuilder o-down-Unmarshaller
@@ -22,4 +63,19 @@ Unmarshaller <|-- XMLUnmarshaller
 Marshaller <|-- DBMarshaller
 Marshaller <|-- XMLMarshaller
 AppBuilder .> Strategy
+
+
+
+class classB{
+List<ClassA> lA
+}
+class B_A{
+id B
+id A
+}
+class classA{
+ClassB b
+
+}
+
 @enduml
