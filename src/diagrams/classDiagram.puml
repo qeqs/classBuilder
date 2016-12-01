@@ -1,0 +1,25 @@
+@startuml
+
+class AppBuilder{
+}
+abstract class Marshaller{
+}
+abstract class Unmarshaller{
+}
+enum Strategy
+class DBMarshaller{
+}
+class DBUnmarshaller{
+}
+class XMLMarshaller{
+}
+class XMLUnmarshaller{
+}
+AppBuilder o-down-Marshaller
+AppBuilder o-down-Unmarshaller
+Unmarshaller <|-- DBUnmarshaller
+Unmarshaller <|-- XMLUnmarshaller
+Marshaller <|-- DBMarshaller
+Marshaller <|-- XMLMarshaller
+AppBuilder .> Strategy
+@enduml
