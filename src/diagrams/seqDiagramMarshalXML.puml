@@ -1,0 +1,20 @@
+@startuml
+Actor user
+user ->  AppBuilder:setStrategy(Strategy strategy)
+activate AppBuilder
+deactivate AppBuilder
+AppBuilder --> user
+user -> AppBuilder :packObjects(Object[] objects, String path)
+activate AppBuilder
+AppBuilder -> XMLMarshaller:new()
+XMLMarshaller-->AppBuilder
+
+
+AppBuilder -> XMLMarshaller: write(Object[] clazz)
+activate XMLMarshaller
+deactivate XMLMarshaller
+XMLMarshaller->AppBuilder: return xml
+AppBuilder-->user: return xml
+deactivate AppBuilder
+
+@enduml
