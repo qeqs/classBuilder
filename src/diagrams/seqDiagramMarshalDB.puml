@@ -1,0 +1,22 @@
+@startuml
+Actor user
+user ->  AppBuilder:setStrategy()
+user -> AppBuilder:setProperties(String property)
+user -> AppBuilder :Marshal(Object,name)
+activate AppBuilder
+AppBuilder -> DBMarshaller:instantiate
+
+database DataBase
+DBMarshaller -> DataBase:create object model
+activate DBMarshaller
+deactivate DBMarshaller
+
+user -> AppBuilder:UnMarshal()
+AppBuilder -> DBUnMarshaller:UnMarshal()
+activate DBUnMarshaller
+DBUnMarshaller -> DataBase: take objects
+DataBase --> DBUnMarshaller:objects
+DBUnMarshaller --> user:objects
+deactivate DBUnMarshaller
+deactivate AppBuilder
+@enduml
