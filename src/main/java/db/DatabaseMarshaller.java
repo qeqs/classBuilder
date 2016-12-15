@@ -1,6 +1,8 @@
 package main.java.db;
 
-public class DatabaseMarshaller {
+import main.java.Marshaller;
+
+public class DatabaseMarshaller extends Marshaller {
 
 
 }
