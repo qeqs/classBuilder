@@ -20,6 +20,11 @@
         <artifactId>postgresql</artifactId>
         <version>9.4.1208-jdbc42-atlassian-hosted</version>
     </dependency>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+    </dependency>
 
 </dependencies>
 
