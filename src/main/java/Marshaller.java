@@ -3,6 +3,6 @@ package main.java;
 public abstract class Marshaller {
 
 
-    public abstract void marshal(Object object, String name, Object proprety);
+    public abstract void marshal(Object object, String name, Object proprety) throws Exception;
 
 }
