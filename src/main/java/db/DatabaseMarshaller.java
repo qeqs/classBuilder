@@ -134,7 +134,7 @@ public class DatabaseMarshaller extends Marshaller {
         return rs.getInt(1);
     }
 
-    public List<String> getColoums(Class<?> clazz) {
+    private List<String> getColoums(Class<?> clazz) {
         ArrayList<String> coloums = new ArrayList<String>();
 
 
@@ -153,7 +153,7 @@ public class DatabaseMarshaller extends Marshaller {
         return coloums;
     }
 
-    public String getColoumsString(List<String> coloums) {
+    private String getColoumsString(List<String> coloums) {
         StringBuilder sb = new StringBuilder();
         sb.append("(");
         for (String coloum : coloums) {
