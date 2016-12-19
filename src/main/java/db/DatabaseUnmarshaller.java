@@ -28,7 +28,6 @@ public class DatabaseUnmarshaller {
                     String fieldNameInDB = field.getAnnotation(TElement.class).name();
 
                     if (fieldClass.isAnnotationPresent(TRootElement.class)) {
-                        //  Object fieldInstance = fieldClass.newInstance();
                         Object fieldInstance = field.get(obj);
                         unmarshall(fieldInstance, rs.getInt(fieldNameInDB), connection);
                         field.set(obj, fieldInstance);
@@ -73,6 +72,10 @@ public class DatabaseUnmarshaller {
             rs.close();
 
         }
+    }
+
+    private void unmarshallCollection(){
+
     }
 
 }
