@@ -7,5 +7,9 @@ public class RootA {
     @TElement(name = "a")
     private int a;
 
+    @TElement
     private String str;
+
+    @TElement
+    IncludedB bClass;
 }

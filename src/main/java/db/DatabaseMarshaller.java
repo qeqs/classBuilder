@@ -24,7 +24,7 @@ public class DatabaseMarshaller extends Marshaller {
         marshalObject(object, name);
     }
 
-    public int marshalObject(Object object, String name) throws Exception {
+    private int marshalObject(Object object, String name) throws Exception {
 
         Class<?> clazz = object.getClass();
         if (getElementType(clazz).equals(ElementType.Collection)) {
@@ -47,7 +47,7 @@ public class DatabaseMarshaller extends Marshaller {
             sqlQuery.append("?,");
         }
         sqlQuery.deleteCharAt(sqlQuery.length() - 1);
-        sqlQuery.append(")");
+        sqlQuery.append(");");
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
         for (int i = 0; i < values.size(); i++) {
             Object value = values.get(i);
@@ -112,7 +112,7 @@ public class DatabaseMarshaller extends Marshaller {
 
     private int marshalMap(Object object, String name) throws Exception {
 
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Collection(name,type,key,value) VALUES(?,?,?,?);");
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Map(name,type,key,value) VALUES(?,?,?,?);");
         preparedStatement.setString(1, name);
         preparedStatement.setString(2, object.getClass().getName());
         Class<?> key = null;
@@ -127,6 +127,7 @@ public class DatabaseMarshaller extends Marshaller {
         }
         preparedStatement.setString(3, key == null ? null : key.getName());
         preparedStatement.setString(4, value == null ? null : value.getName());
+        preparedStatement.execute();
 
         preparedStatement = connection.prepareStatement("SELECT max(id) FROM Map;");
         ResultSet rs = preparedStatement.executeQuery();

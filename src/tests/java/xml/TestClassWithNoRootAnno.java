@@ -1,4 +1,4 @@
-package xml;
+package tests.java.xml;
 
 import main.java.annotations.TElement;
 import java.util.Arrays;

@@ -6,6 +6,10 @@ import main.java.db.DatabaseMarshaller;
 import org.junit.Test;
 import tests.testClasses.RootA;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.*;
 
 
@@ -14,21 +18,31 @@ public class MainTest {
     @Test
     public void test() {
         DatabaseMarshaller marshaller = new DatabaseMarshaller();
-        RootA[] test = new RootA[10];
         List<RootA> list = new ArrayList<>();
-        Set<RootA> set = new HashSet<>();
+        for(int i=0;i<5;i++)
         list.add(new RootA());
-        set.add(new RootA());
-        for (Object obj : set
-                ) {
-
-            System.out.println(obj.getClass().getName());
-        }
+        Connection connection = null;
         try {
-            //  marshaller.marshal(new RootA(), "name", null);
+            Class.forName("org.postgresql.Driver");
+
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/classBuilder","postgres","110371");
+
+            marshaller.marshal(list,"RootAList",connection);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        finally {
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
     }
 }
 
