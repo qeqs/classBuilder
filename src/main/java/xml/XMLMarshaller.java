@@ -102,7 +102,6 @@ public final class XMLMarshaller extends Marshaller {
                             subElem.appendChild(doc.createTextNode(field.get(objectToMarshall) != null ? (field.get(objectToMarshall).toString()) : "null"));
                             parent.appendChild(subElem);
                         } else {
-                            // field.getAnnotation(TElement.class).name()
                             parent.appendChild(marshallObject(field.get(objectToMarshall), field.getAnnotation(TElement.class).name(), doc));
                         }
                         field.setAccessible(false);

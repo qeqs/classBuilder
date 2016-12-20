@@ -42,6 +42,8 @@ public class XMLUnmarshallerTest {
 
         TestClass parsedTest = (TestClass) new XMLUnmarshaller().parse("file.xml");
         assertEquals(test, parsedTest);
+        System.out.println("parameters: XML with written Class Test that contains another class, arrays and maps with list field; Result: Ok");
+
     }
 
 }
