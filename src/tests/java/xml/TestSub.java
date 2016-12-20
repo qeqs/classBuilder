@@ -1,4 +1,4 @@
-package xml;
+package tests.java.xml;
 
 import main.java.annotations.TElement;
 import main.java.annotations.TRootElement;

@@ -1,4 +1,4 @@
-package xml;
+package main.java.xml;
 
 import main.java.Marshaller;
 import main.java.annotations.*;

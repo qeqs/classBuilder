@@ -1,4 +1,4 @@
-package xml;
+package main.java.xml;
 //Temporary structure for Maps
 public class MapEntry {
 
