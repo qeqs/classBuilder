@@ -2,6 +2,7 @@ package tests.java.xml;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import main.java.xml.*;
 
 public class PreProcessorTest {
 
@@ -10,7 +11,7 @@ public class PreProcessorTest {
         System.out.println("ANNOTATIONS VALIDATOR TEST �1");
         System.out.println("checking no root element case");
         boolean expResult = false;
-        boolean result = PreProcessor.checkAnnotationsValues(TestClassWithNoRootAnno.class);
+        boolean result =  PreProcessor.checkAnnotationsValues(TestClassWithNoRootAnno.class);
         assertEquals(expResult, result);
         System.out.println("parameters: Class with no @TRootElement Annotation; Result: Ok");
 

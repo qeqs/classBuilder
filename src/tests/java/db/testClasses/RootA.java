@@ -1,7 +1,6 @@
-package tests.testClasses;
+package tests.java.db.testClasses;
 
 import main.java.annotations.TElement;
-import main.java.annotations.TElements;
 
 public class RootA {
     @TElement(name = "a")
@@ -11,5 +10,5 @@ public class RootA {
     private String str;
 
     @TElement
-    IncludedB bClass;
+    IncludedB bClass = new IncludedB();
 }

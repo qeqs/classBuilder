@@ -1,4 +1,4 @@
-package xml;
+package main.java.xml;
 
 import main.java.annotations.*;
 import java.io.File;

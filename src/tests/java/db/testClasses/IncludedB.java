@@ -1,4 +1,4 @@
-package tests.testClasses;
+package tests.java.db.testClasses;
 
 import main.java.annotations.TElement;
 

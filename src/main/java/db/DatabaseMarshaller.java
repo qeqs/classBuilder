@@ -37,8 +37,8 @@ public class DatabaseMarshaller extends Marshaller {
         List<Object> values = getValues(object);
         List<String> coloums = getColoums(clazz);
         StringBuilder sqlQuery = new StringBuilder();
-        sqlQuery.append("INSERT INTO ");
-        sqlQuery.append(tableName);
+        sqlQuery.append("INSERT INTO public.\"");
+        sqlQuery.append(tableName+"\"");
         sqlQuery.append(getColoumsString(coloums));
         sqlQuery.append("VALUES ");
         sqlQuery.append("(");
@@ -51,28 +51,32 @@ public class DatabaseMarshaller extends Marshaller {
         PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery.toString());
         for (int i = 0; i < values.size(); i++) {
             Object value = values.get(i);
+            if(value==null) {
+                preparedStatement.setObject(i + 1, null);
+                continue;
+            }
             switch (getElementType(value.getClass())) {
                 case Primitive:
-                    preparedStatement.setObject(i, value);
+                    preparedStatement.setObject(i+1, value);
                     break;
                 case Collection:
-                    preparedStatement.setInt(i, marshalCollection(value, name));
+                    preparedStatement.setInt(i+1, marshalCollection(value, name));
                     break;
                 case Map:
-                    preparedStatement.setInt(i, marshalMap(value, name));
+                    preparedStatement.setInt(i+1, marshalMap(value, name));
                     break;
                 case Complex:
-                    preparedStatement.setInt(i, marshalObject(value, name));
+                    preparedStatement.setInt(i+1, marshalObject(value, name));
                     break;
                 default:
-                    preparedStatement.setObject(i, null);
+                    preparedStatement.setObject(i+1, null);
                     break;
             }
         }
         if (preparedStatement != null)
             preparedStatement.execute();
 
-        preparedStatement = connection.prepareStatement("SELECT max(id) FROM " + tableName + ";");
+        preparedStatement = connection.prepareStatement("SELECT max(id) FROM public.\"" + tableName + "\";");
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
         return rs.getInt(1);
@@ -81,7 +85,7 @@ public class DatabaseMarshaller extends Marshaller {
 
     private int marshalCollection(Object object, String name) throws Exception {
 
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Collection(name,type,value) VALUES(?,?,?);");
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO public.\"Collection\"(name,type,value) VALUES(?,?,?);");
         preparedStatement.setString(1, name);
         if (object.getClass().isArray()) {
             preparedStatement.setString(2, Array.class.getName());
@@ -104,7 +108,7 @@ public class DatabaseMarshaller extends Marshaller {
         preparedStatement.execute();
 
 
-        preparedStatement = connection.prepareStatement("SELECT max(id) FROM Collections;");
+        preparedStatement = connection.prepareStatement("SELECT max(id) FROM public.\"Collection\";");
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
         return rs.getInt(1);
@@ -112,7 +116,7 @@ public class DatabaseMarshaller extends Marshaller {
 
     private int marshalMap(Object object, String name) throws Exception {
 
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Map(name,type,key,value) VALUES(?,?,?,?);");
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO public.\"Map\"(name,type,key,value) VALUES(?,?,?,?);");
         preparedStatement.setString(1, name);
         preparedStatement.setString(2, object.getClass().getName());
         Class<?> key = null;
@@ -129,7 +133,7 @@ public class DatabaseMarshaller extends Marshaller {
         preparedStatement.setString(4, value == null ? null : value.getName());
         preparedStatement.execute();
 
-        preparedStatement = connection.prepareStatement("SELECT max(id) FROM Map;");
+        preparedStatement = connection.prepareStatement("SELECT max(id) FROM public.\"Map\";");
         ResultSet rs = preparedStatement.executeQuery();
         rs.next();
         return rs.getInt(1);
