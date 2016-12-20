@@ -1,7 +1,7 @@
-package db;
+package main.java.db;
 
-import annotations.TElement;
-import annotations.TRootElement;
+import main.java.annotations.TElement;
+import main.java.annotations.TRootElement;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
